@@ -38,12 +38,12 @@ import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import com.agiletec.aps.system.ApsSystemUtils;
+import com.agiletec.aps.system.SystemConstants;
 import com.agiletec.aps.system.common.entity.model.AttributeFieldError;
 import com.agiletec.aps.system.common.entity.model.AttributeTracer;
 import com.agiletec.aps.system.common.entity.model.attribute.AttributeInterface;
@@ -54,6 +54,7 @@ import com.agiletec.aps.system.services.page.IPage;
 import com.agiletec.aps.system.services.page.IPageManager;
 import com.agiletec.aps.system.services.page.Widget;
 import com.agiletec.aps.util.ApsProperties;
+import com.agiletec.plugins.jacms.aps.system.JacmsSystemConstants;
 import com.agiletec.plugins.jacms.aps.system.services.content.IContentManager;
 import com.agiletec.plugins.jacms.aps.system.services.content.model.Content;
 import com.agiletec.plugins.jacms.aps.system.services.contentmodel.ContentModel;
@@ -70,11 +71,9 @@ public class ContentJobs extends QuartzJobBean implements ApplicationContextAwar
 	private ICategoryManager _categoryManager;
 	private IPageManager _pageManager;
 	private IContentModelManager _contentModelManager;
+    private ILangManager langManager;
 
 	private ApplicationContext _ctx;
-
-	@Autowired
-	private ILangManager langManager;
 
 	@Override
 	public void setApplicationContext(ApplicationContext ac) throws BeansException {
@@ -94,9 +93,10 @@ public class ContentJobs extends QuartzJobBean implements ApplicationContextAwar
 	private void initBeans(ApplicationContext appCtx) {
 		this.setContentSchedulerManager(
 				(IContentSchedulerManager) appCtx.getBean("jpcontentschedulerContentSchedulerManager"));
-		this.setContentModelManager((IContentModelManager) appCtx.getBean("jacmsContentModelManager"));
-		this.setCategoryManager((ICategoryManager) appCtx.getBean("CategoryManager"));
-		this.setPageManager((IPageManager) appCtx.getBean("PageManager"));
+		this.setContentModelManager((IContentModelManager) appCtx.getBean(JacmsSystemConstants.CONTENT_MODEL_MANAGER));
+		this.setCategoryManager((ICategoryManager) appCtx.getBean(SystemConstants.CATEGORY_MANAGER));
+		this.setPageManager((IPageManager) appCtx.getBean(SystemConstants.PAGE_MANAGER));
+		this.setLangManager((ILangManager) appCtx.getBean(SystemConstants.LANGUAGE_MANAGER));
 	}
 
 	@Override
@@ -117,9 +117,9 @@ public class ContentJobs extends QuartzJobBean implements ApplicationContextAwar
 					.isActive()/* && isCurrentSiteAllowed() */) {
 				Date startJobDate = new Date();
 				_logger.info(ContentThreadConstants.START_TIME_LOG + Utils.printTimeStamp(startJobDate));
-				List<ContentState> removedContents = new ArrayList<ContentState>();
-				List<ContentState> publishedContents = new ArrayList<ContentState>();
-				List<ContentState> moveContents = new ArrayList<ContentState>();
+				List<ContentState> removedContents = new ArrayList<>();
+				List<ContentState> publishedContents = new ArrayList<>();
+				List<ContentState> moveContents = new ArrayList<>();
 				try {
 					this.publishContentsJob(publishedContents);
 					// System.out.println("CONTENUTI DA PUBLICARE -> " +
@@ -217,7 +217,7 @@ public class ContentJobs extends QuartzJobBean implements ApplicationContextAwar
 			for (int i = 0; i < attributes.size(); i++) {
 				AttributeInterface entityAttribute = attributes.get(i);
 				if (entityAttribute.isActive()) {
-					List<AttributeFieldError> errors = entityAttribute.validate(new AttributeTracer(), langManager);
+					List<AttributeFieldError> errors = entityAttribute.validate(new AttributeTracer(), this.getLangManager());
 					if (null != errors && errors.size() > 0) {
 						return false;
 					}
@@ -766,5 +766,12 @@ public class ContentJobs extends QuartzJobBean implements ApplicationContextAwar
 	public void setContentModelManager(IContentModelManager contentModelManager) {
 		this._contentModelManager = contentModelManager;
 	}
+    
+    public ILangManager getLangManager() {
+        return langManager;
+    }
+    public void setLangManager(ILangManager langManager) {
+        this.langManager = langManager;
+    }
 
 }
