@@ -62,13 +62,11 @@ import com.agiletec.plugins.jacms.aps.system.services.content.IContentSearcherDA
 import com.agiletec.plugins.jacms.aps.system.services.content.model.Content;
 import com.agiletec.plugins.jpmail.aps.services.mail.IMailManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 /**
  * Classe che implementa i servizi da necessari al thread di
  * pubblicazione/sospenzione automatica
  */
-@Component
 public class ContentSchedulerManager extends AbstractService implements IContentSchedulerManager {
 
     private static final Logger _logger = LoggerFactory.getLogger(ContentSchedulerManager.class);

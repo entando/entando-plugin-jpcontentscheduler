@@ -21,26 +21,44 @@
  */
 package org.entando.entando.plugins.jpcontentscheduler.aps.system.services.content;
 
-import org.entando.entando.plugins.jpcontentscheduler.aps.ApsPluginBaseTestCase;
-import org.junit.jupiter.api.Test;
-import org.quartz.JobExecutionException;
-import org.springframework.context.ApplicationContext;
-
+import com.agiletec.aps.BaseTestCase;
 import com.agiletec.aps.system.SystemConstants;
 import com.agiletec.aps.system.services.category.ICategoryManager;
 import com.agiletec.aps.system.services.page.IPageManager;
 import com.agiletec.plugins.jacms.aps.system.JacmsSystemConstants;
 import com.agiletec.plugins.jacms.aps.system.services.content.IContentManager;
 import com.agiletec.plugins.jacms.aps.system.services.contentmodel.IContentModelManager;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.quartz.JobExecutionException;
+import org.springframework.context.ApplicationContext;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * @author E.Santoboni
  */
-public class TestContentJobs extends ApsPluginBaseTestCase {
+public class TestContentJobs extends BaseTestCase {
 
 	private ContentJobs _contentJobs;
+
+	@BeforeEach
+	protected void init() throws Exception {
+		ApplicationContext apx = super.getApplicationContext();
+		IContentSchedulerManager contentSchedulerManager = (IContentSchedulerManager) apx
+				.getBean("jpcontentschedulerContentSchedulerManager");
+		IContentManager contentManager = (IContentManager) apx.getBean(JacmsSystemConstants.CONTENT_MANAGER);
+		ICategoryManager categoryManager = (ICategoryManager) apx.getBean(SystemConstants.CATEGORY_MANAGER);
+		IPageManager pageManager = (IPageManager) apx.getBean(SystemConstants.PAGE_MANAGER);
+		IContentModelManager contentModelManager = (IContentModelManager) apx.getBean(JacmsSystemConstants.CONTENT_MODEL_MANAGER);
+		this._contentJobs = new ContentJobs();
+		// this._contentJobs.setApplicationContext(apx);
+		this._contentJobs.setCategoryManager(categoryManager);
+		this._contentJobs.setContentManager(contentManager);
+		this._contentJobs.setContentModelManager(contentModelManager);
+		this._contentJobs.setContentSchedulerManager(contentSchedulerManager);
+		this._contentJobs.setPageManager(pageManager);
+	}
 
 	@Test
 	public void testExecuteJob() {

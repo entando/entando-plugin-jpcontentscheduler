@@ -1,36 +1,29 @@
 package org.entando.entando.plugins.jpcontentscheduler.aps.system.services.content;
 
-import org.entando.entando.plugins.jpcontentscheduler.aps.ApsPluginBaseTestCase;
+import com.agiletec.aps.BaseTestCase;
 import org.entando.entando.plugins.jpcontentscheduler.aps.system.services.content.model.ContentThreadConfig;
 import org.entando.entando.plugins.jpcontentscheduler.aps.system.services.content.parse.ContentThreadConfigDOM;
-
-import com.agiletec.aps.system.exception.ApsSystemException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-//@RunWith(SpringJUnit4ClassRunner.class)
-@ExtendWith({SpringExtension.class})
-@ContextConfiguration(locations = { "classpath:contentThreadConfig.xml" })
-//@WebAppConfiguration("")
-public class TestContentScheduler extends ApsPluginBaseTestCase {
+public class TestContentScheduler extends BaseTestCase {
 
-	@Autowired
 	private IContentSchedulerManager contentScheduler;
 
 	@Test
-	public void testMe() throws ApsSystemException {
+	void testConfig() throws Exception {
 		assertTrue(null != contentScheduler);
 		ContentThreadConfig config = contentScheduler.getConfig();
 		ContentThreadConfigDOM dd = new ContentThreadConfigDOM();
 		String xml = dd.createConfigXml(config);
 		System.out.println(xml);
+	}
+
+	@BeforeEach
+	public void init() throws Exception {
+		this.contentScheduler = (IContentSchedulerManager) this.getApplicationContext().getBean("jpcontentschedulerContentSchedulerManager");
 	}
 
 }
