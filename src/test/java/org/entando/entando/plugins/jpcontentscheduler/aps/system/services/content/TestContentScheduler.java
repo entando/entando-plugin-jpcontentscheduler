@@ -13,12 +13,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestContentScheduler extends ApsPluginBaseTestCase {
 
-	private final IContentSchedulerManager contentScheduler;
-
 	@Autowired
-	public TestContentScheduler(@Qualifier("jpcontentschedulerContentSchedulerManager") IContentSchedulerManager contentSchedulerManager) {
-		this.contentScheduler = contentSchedulerManager;
-	}
+	private IContentSchedulerManager contentScheduler;
 
 	@Test
 	public void testMe() throws ApsSystemException {
