@@ -7,13 +7,18 @@ import org.entando.entando.plugins.jpcontentscheduler.aps.system.services.conten
 import com.agiletec.aps.system.exception.ApsSystemException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestContentScheduler extends ApsPluginBaseTestCase {
 
+	private final IContentSchedulerManager contentScheduler;
+
 	@Autowired
-	private IContentSchedulerManager contentScheduler;
+	public TestContentScheduler(@Qualifier("jpcontentschedulerContentSchedulerManager") IContentSchedulerManager contentSchedulerManager) {
+		this.contentScheduler = contentSchedulerManager;
+	}
 
 	@Test
 	public void testMe() throws ApsSystemException {
