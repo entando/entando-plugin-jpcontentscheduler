@@ -1,13 +1,12 @@
 package org.entando.entando.plugins.jpcontentscheduler.aps;
 
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class TestApsSample extends ApsPluginBaseTestCase {
 
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
-		this.init();
-	}
-
+	@Test
 	public void test() {
 		assertTrue(true);
 	}

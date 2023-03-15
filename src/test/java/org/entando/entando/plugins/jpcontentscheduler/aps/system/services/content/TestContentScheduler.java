@@ -5,18 +5,15 @@ import org.entando.entando.plugins.jpcontentscheduler.aps.system.services.conten
 import org.entando.entando.plugins.jpcontentscheduler.aps.system.services.content.parse.ContentThreadConfigDOM;
 
 import com.agiletec.aps.system.exception.ApsSystemException;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestContentScheduler extends ApsPluginBaseTestCase {
 
 	private IContentSchedulerManager contentScheduler;
 
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
-		this.init();
-
-	}
-
+	@Test
 	public void testMe() throws ApsSystemException {
 		assertTrue(null != contentScheduler);
 		ContentThreadConfig config = contentScheduler.getConfig();

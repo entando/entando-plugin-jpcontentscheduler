@@ -21,16 +21,7 @@
  */
 package org.entando.entando.plugins.jpcontentscheduler.apsadmin;
 
-import org.entando.entando.plugins.jpcontentscheduler.PluginConfigTestUtils;
-
-import com.agiletec.ConfigTestUtils;
 import com.agiletec.apsadmin.ApsAdminBaseTestCase;
 
 public class ApsAdminPluginBaseTestCase extends ApsAdminBaseTestCase {
-
-	@Override
-	protected ConfigTestUtils getConfigUtils() {
-		return new PluginConfigTestUtils();
-	}
-
 }
