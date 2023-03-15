@@ -6,11 +6,19 @@ import org.entando.entando.plugins.jpcontentscheduler.aps.system.services.conten
 
 import com.agiletec.aps.system.exception.ApsSystemException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+//@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith({SpringExtension.class})
+@ContextConfiguration(locations = { "classpath:contentThreadConfig.xml" })
+//@WebAppConfiguration("")
 public class TestContentScheduler extends ApsPluginBaseTestCase {
 
 	@Autowired
