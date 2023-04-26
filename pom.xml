@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.entando</groupId>
         <artifactId>entando-core-parent</artifactId>
-        <version>6.3.13</version>
+        <version>6.5.0</version>
     </parent>
     <artifactId>entando-plugin-jpcontentscheduler</artifactId>
     <groupId>org.entando.entando.plugins</groupId>
@@ -101,7 +101,7 @@
             <dependency>
                 <groupId>org.entando</groupId>
                 <artifactId>entando-core-bom</artifactId>
-                <version>6.5.0-ECS-611</version>
+                <version>6.5.0-ENG-4782</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
