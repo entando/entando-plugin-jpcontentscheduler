@@ -5,12 +5,12 @@
     <parent>
         <groupId>org.entando</groupId>
         <artifactId>entando-core-parent</artifactId>
-        <version>6.2.22</version>
+        <version>6.5.0</version>
     </parent>
     <artifactId>entando-plugin-jpcontentscheduler</artifactId>
     <groupId>org.entando.entando.plugins</groupId>
     <packaging>war</packaging>
-    <version>6.3.2</version>
+    <version>6.5.0</version>
     <name>Entando Plugin: Content Scheduler</name>
     <description>CMS Content Scheduler</description>
     <developers>
@@ -36,7 +36,6 @@
     <properties>
         <checkstyle.skip>true</checkstyle.skip>
         <!--        <allTestsSuiteClass>org.entando.entando.plugins.jacms.apsadmin.common.TestActivityStream</allTestsSuiteClass>-->
-        <allTestsSuiteClass>org.entando.entando.plugins.jpcontentscheduler.AllTests</allTestsSuiteClass>
     </properties>
     <build>
         <resources>
@@ -102,7 +101,7 @@
             <dependency>
                 <groupId>org.entando</groupId>
                 <artifactId>entando-core-bom</artifactId>
-                <version>6.2.171</version>
+                <version>6.5.0-ENG-4782</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -195,8 +194,16 @@
             <artifactId>derby</artifactId>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
         </dependency>
     </dependencies>
 </project>
